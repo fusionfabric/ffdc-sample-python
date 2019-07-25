@@ -1,4 +1,4 @@
-#Welcome
+# Welcome
 
 This repository contains two sample client applications, demonstrating the implementation of two OAuth2 authorization grant flows for FusionFabric.cloud - the authorization code and the client credentials grant flows, in Python.
 
