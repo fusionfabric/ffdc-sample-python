@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    {% include 'partials/head.html' %}
+  </head>
+  <body class="container-fluid">
+    <header>
+      {% include 'partials/header.html' %}
+    </header>
+    <main class="main">
+    <div class="row">
+      {% for result in results %}
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">{{ result.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Currency: {{ result.currency }}</h6>
+            <h7 class="card-subtitle mb-2 text-muted">Code: {{ result.alpha3code }}</h7>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+    </main>
+    <footer>
+      {% include 'partials/footer.html' %}
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.main {
+    height: calc(100% - 150px);
+  }
+  
+  .navbar {
+    margin-bottom: 10px;
+  }
+  
+  .btn {
+    margin: 10px;
+  }
+  
+  body {
+    margin: 10px;
+  }
+  
