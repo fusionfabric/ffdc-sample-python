@@ -1,20 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Authorization code sample</span>
-  </nav>
-  
-  <div class="btn-toolbar" role="toolbar">
-  
-      <form action="/login">
-        <button type="submit" class="btn btn-primary">Login</button>
-      </form>
-  
-      <form action="/results">
-          <button type="submit" class="btn btn-secondary">Get Data</button>
-      </form>
-  
-      <form action="/logout">
-          <button type="submit" class="btn btn-danger">Logout</button>
-      </form>
-  </div>
-  
-  <hr>
+    <span class="navbar-brand mb-0 h1">Finastra Python Authorization Code sample</span>
+</nav>
+
+<h6>
+    <nav class="navbar navbar-expand-lg navbar-light">
+
+        {% if strong %}
+        JSON Web Key Authentication
+        {% else %}
+        Secret Key Authentication
+        {% endif %}
+
+    </nav>
+</h6>
+
+<div class="btn-toolbar" role="toolbar">
+
+    <form action="/login">
+        <button type="submit" class="btn btn-primary">Acquire Access Token</button>
+    </form>
+
+    <form action="/results">
+        <button type="submit" class="btn btn-secondary">Get Data</button>
+    </form>
+
+    <form action="/logout">
+        <button type="submit" class="btn btn-danger">Remove Access Token</button>
+    </form>
+</div>
+
+<hr>
