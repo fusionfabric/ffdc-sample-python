@@ -1,36 +1,39 @@
 <html lang="en">
-  <head>
-    {% include 'partials/head.html' %}
-  </head>
-  <body class="container-fluid">
-    <header>
-      {% include 'partials/header.html' %}
-    </header>
-    <main class="main">
+
+<head>
+  {% include 'partials/head.html' %}
+</head>
+
+<body class="container-fluid">
+  <header>
+    {% include 'partials/header.html' %}
+  </header>
+  <main class="main">
     <div class="row">
       {% for result in results %}
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="card">
-            <div class="card-body">
+          <div class="card-body">
             <h5 class="card-title">{{ result.id }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ result.description }}</h6>
             <p></p>
             <p class="card-text">
-                <strong>Applicable entities:</strong>
-                <ul class="list-group list-group-flush">    
-                  {% for detail in result.applicableEntities %}
-                  <li class="list-group-item">{{ detail }}</li>
-                  {% endfor %}
-                </ul>
-            </p> 
-            </div>
+              <strong>Applicable entities:</strong>
+              <ul class="list-group list-group-flush">
+                {% for detail in result.applicableEntities %}
+                <li class="list-group-item">{{ detail }}</li>
+                {% endfor %}
+              </ul>
+            </p>
+          </div>
         </div>
       </div>
       {% endfor %}
-      </div>
-    </main>
-    <footer>
-      {% include 'partials/footer.html' %}
-    </footer>
-  </body>
+    </div>
+  </main>
+  <footer>
+    {% include 'partials/footer.html' %}
+  </footer>
+</body>
+
 </html>

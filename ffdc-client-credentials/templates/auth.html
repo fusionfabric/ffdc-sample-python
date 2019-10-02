@@ -1,24 +1,32 @@
 <html lang="en">
-  <head>
-    {% include 'partials/head.html' %}
-  </head>
-  <body class="container-fluid">
-    <header>
-        {% include 'partials/header.html' %}
-    </header>
 
-    <main class="main">
-      <p>
-      You successfully logged in with token: 
-      {% if token != "" %}
-      {{token}}
-      {% endif %}
-      </p>
-      <p>Use the Get Data button to load data</p>
-    </main>
+<head>
+  {% include 'partials/head.html' %}
+</head>
 
-    <footer>
-        {% include 'partials/footer.html' %}
-    </footer>
-  </body>
+<body class="container-fluid">
+  <header>
+    {% include 'partials/header.html' %}
+  </header>
+
+  <main class="main">
+    <div>
+      <p><label>You acquired the following access token:</label></p>
+      <textarea id="textToken" rows="10" cols="100" wrap="soft">{{token}}</textarea>
+      <p></p>
+      <button type="button" onclick="myFunction()">Copy to clipboard</button>
+      <script>
+        function myFunction() {
+          document.getElementById("textToken").select()
+          document.execCommand('copy')
+        }
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    {% include 'partials/footer.html' %}
+  </footer>
+</body>
+
 </html>
