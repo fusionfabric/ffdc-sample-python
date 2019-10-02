@@ -1,25 +1,28 @@
 <html lang="en">
-  <head>
-    {% include 'partials/head.html' %}
-  </head>
-  <body class="container-fluid">
-    <header>
-            {% include 'partials/header.html' %}
-    </header>
 
-    <main class="main">
-       <div class="row">
-        
-        <div class="col-sm-12">
-            <div class="alert alert-danger" role="alert">
-                {{error}}
-            </div>
+<head>
+  {% include 'partials/head.html' %}
+</head>
+
+<body class="container-fluid">
+  <header>
+    {% include 'partials/header.html' %}
+  </header>
+
+  <main class="main">
+    <div class="row">
+
+      <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+          {{error}}
         </div>
-        
-    </main>
+      </div>
 
-    <footer>
-        {% include 'partials/footer.html' %}
-    </footer>
-  </body>
+  </main>
+
+  <footer>
+    {% include 'partials/footer.html' %}
+  </footer>
+</body>
+
 </html>

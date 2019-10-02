@@ -1,60 +1,62 @@
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
-from flask import Flask, request, redirect, session, render_template
-from flask import session
+from flask import Flask, session, render_template
+import requests
 import os
-import urllib.parse as urlparse
 import json
-from dotenv import load_dotenv
+import helpers
 
 app = Flask(__name__)
 
 # Global variables
-load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 access_key = os.getenv("CLIENT_SECRET")
 token_endpoint = os.getenv("TOKEN_URL")
 base_url = os.getenv("BASE_URL")
-
-oauth = None
+strong = os.getenv("STRONG")=='True'
 
 # Main page
 @app.route('/')
 def auth():
-    return render_template('index.html')
+    return render_template('index.html', strong=strong)
 
-
-#Get the token using the client credentials
-@app.route("/login")
-def demo():
-    client = BackendApplicationClient(client_id=client_id)
-  
-    global oauth
-    oauth = OAuth2Session(client=client)
+# Log in
+@app.route("/login", methods=["GET","POST"])
+def login():
     
-    token = oauth.fetch_token(token_url=token_endpoint,
-                              client_id=client_id,
-                              client_secret=access_key)
-
-    return render_template('auth.html', token=token['access_token'])
+    data = {'grant_type':'client_credentials'}
+    if(strong):
+        data['client_assertion_type'] = 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
+        data['client_assertion'] = helpers.jwToken()
+    else:
+        data['client_id'] = client_id
+        data['client_secret'] = access_key    
+   
+    headers = {'Content-Type':'application/x-www-form-urlencoded'}    
+    r = requests.post(token_endpoint, headers=headers, data=data)
+    response =  r.json()
+    
+    if (r.status_code is 200):         
+        token = response['access_token']
+        # Put token in the session
+        session['session_token'] = token    
+    
+    return render_template('auth.html', token=token, strong=strong)
 
 # Display the results
 @app.route('/results')
 def results():
     try:
-        result = oauth.get(base_url + '/referential/v1/countries')
+        headers={"Authorization": "Bearer " + session['session_token']}
+        result = requests.get(base_url + '/referential/v1/countries', headers=headers)
         json_data = json.loads(result.text)['countries']
-        return render_template('results.html', results=json_data)
+        return render_template('results.html', results=json_data, strong=strong)
     except:
-        return render_template('error.html', error="Please Login to get the data")
+        return render_template('error.html', error="Unauthorized!", strong=strong)
 
 # Logout
 @app.route('/logout')
-def logout():
-    global oauth
-    oauth = None
-    return render_template('logout.html', error="You successfully logged out")
-
+def logout():  
+    session['session_token']=''
+    return render_template('logout.html', error="You successfully removed the access token.", strong=strong)
 
 # Main script
 if __name__ == "__main__":
