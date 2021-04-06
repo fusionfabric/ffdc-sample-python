@@ -4,3 +4,10 @@ private.pem
 
 # Python bytecode
 __pycache__
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
